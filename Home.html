@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style1.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+
+</head>
+<body>
+
+    <div class='outer'>
+
+        <!-- The weather box -->
+
+        <div class='box'>
+            <p class="p_one" id="p_one">Bengaluru, Karnataka</p>
+            <p class="p_two" id="p_two">Wednesday</p>
+            <p class="p_three" id="p_three">,</p>
+            <p class="p_four" id="p_four">1</p>
+            <p class="p_eleven" id="p_eleven">:</p>
+            <p class="p_twelve" id="p_twelve">00</p>
+            <p class="p_five" id="p_five">pm</p>
+            <p class="p_six" id="p_six">cloudy</p>
+            <p class="p_seven" id="p_seven">26</p>
+            <p class="p_eigth" id="p_eigth" onclick="c()">&#8451</p>
+            <p class="p_nine" id="p_nine" onclick="f()">&#8457</p>
+            <p class="p_ten" id="p_ten">|</p>
+            <i class='fas fa-cloud' id="myImg" style='font-size:20px;color:rgb(185, 181, 181); position: absolute;top: 30%;left: 32%'></i>
+            
+            <div > 
+                 <h>Enter City Name</h>
+            </div>
+            <!-- Search City -->
+
+            <div class='search_item'>
+                <select class="drop" id="drop" onchange="show()">
+                    <!-- <option value="" disabled selected hidden>City,State</option> -->
+                    <option value="Bangaluru">Bangaluru</option>
+                    <option value="Bhubaneswar">Bhubaneswar</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Pune">Pune</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var temperature;
+    var situation;
+    function show(){
+
+        // taking Array of cities to show random information
+
+    var arr =[{city:"Bangaluru",state:"karnataka",temp:30,sky:"cloudy"},
+              {city:"Bhubaneswar",state:"Odisha",temp:40,sky:"sunny"}, 
+              {city:"Kolkata",state:"West bengal",temp:35,sky:"cloudy"}, 
+              {city:"Pune",state:"Maharastra",temp:35,sky:"sunny"}, 
+
+    ]; 
+
+    // accepting current day informations
+
+    var currentdate = new Date();
+    var days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var city1=document.getElementById("drop").value;
+
+    // filtering only the accepted city and showing the items
+
+    var op=arr.filter((a)=>a.city===city1);
+    document.getElementById("p_one").innerHTML=op[0].city+", "+op[0].state;
+    temperature=op[0].temp;
+    situation=op[0].sky;
+    document.getElementById("p_two").innerHTML=days[currentdate.getDay()]
+    document.getElementById("p_seven").innerHTML=op[0].temp
+    document.getElementById("p_six").innerHTML=op[0].sky;
+    if(currentdate.getHours()<=12){
+       document.getElementById("p_four").innerHTML=currentdate.getHours();
+    }   
+    else{
+        document.getElementById("p_four").innerHTML=((currentdate.getHours())%12);
+    }
+    document.getElementById("p_twelve").innerHTML=currentdate.getMinutes();
+    
+    if(currentdate.getHours()<=12){
+        document.getElementById("p_five").innerHTML='am';
+    }
+    else{
+        document.getElementById("p_five").innerHTML='pm';
+
+    }
+   if(situation=="sunny"){
+      document.getElementById("myImg").className='fas fa-sun';
+ }else{
+    document.getElementById("myImg").className='fas fa-cloud';
+ }
+    }
+    function f(){
+        var fa=((temperature*(9/5))+32);
+    document.getElementById("p_seven").innerHTML=fa;
+    }
+    function c(){
+       document.getElementById("p_seven").innerHTML=temperature;
+    }
+
+    </script>
+</body>
+</html>
